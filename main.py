@@ -32,5 +32,6 @@ if __name__ == "__main__":
         # En este condicional se verifica si ya no se desean realizar más acciones para salir del sistema
         if opcion == 3:
             limpiar_consola()
+
             print('Fin de la jornada en la tienda!!!!')
             break

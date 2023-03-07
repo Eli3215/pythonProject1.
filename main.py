@@ -1,24 +1,6 @@
 # Importación de módulos
-from os import system
-
-# Esta función permite limpiar la consola
-# Parámetros de entrada: Ninguno
-# Retorna: No
-def limpiar_consola():
-    system('cls')
-
-# Esta función permite mostrar el menú al administrador de la caja registradora
-# Parámetros de entrada: Ninguno
-# Retorna: La opción para continuar con las opciones en caja
-def mostrar_menu_administrador():
-    print('Hola administrador, seleccione la acción que desea realizar:')
-    print('1. Ingresar productos al inventario')
-    print('2. Realizar una venta a un cliente')
-    print('3. Salir')
-    print('****************************************')
-
-    opcion = int(input('Ingrese la opción a realizar -> '))
-    return opcion
+from funciones import mostrar_menu_administrador, limpiar_consola, computar_producto
+from time import sleep
 
 # Inicio del programa
 if __name__ == "__main__":
@@ -29,9 +11,19 @@ if __name__ == "__main__":
         limpiar_consola()
         opcion = mostrar_menu_administrador()
 
-        # En este condicional se verifica si ya no se desean realizar más acciones para salir del sistema
-        if opcion == 3:
-            limpiar_consola()
+        if opcion == 1:
+            print('Ingresando producto al inventario')
 
+        elif opcion == 2:
+            computar_producto()
+
+        elif opcion == 3:
+            limpiar_consola()
             print('Fin de la jornada en la tienda!!!!')
             break
+
+        else:
+            print('Opción incorrecta, intente de nuevo!!!')
+
+        sleep(3) # Se espera unos segundos para actualizar la consola
+

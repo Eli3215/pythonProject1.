@@ -1,5 +1,9 @@
+# Importación de modulos
 from Producto import Fruta, Verdura
 
+
+# Esta clase permite definir la implementación del patrón Singleton para tener
+# una sola instancia de clase en el proyecto
 class SingletonInventarioMeta(type):
 
     _instancias = {}
@@ -13,14 +17,16 @@ class SingletonInventarioMeta(type):
         return cls._instancias[cls]
 
 
+# Esta clase hereda de la clase SingletonInventarioMeta lo que permite tener una sola instancia de la clase Inventario
 class Inventario(metaclass=SingletonInventarioMeta):
 
-    # Esta función permite inicializar los vectores donde se almacenarán los productos por categorías
-    # Parámetros de ingreso: Ninguno
+    # Esta función permite inicializar los vectores donde se almacenarán los productos
+    # por categorías (Frutas o Verduras)
+    # Parámetros de ingreso: No
     # Retorna: No
     def inicializacion(self) -> None:
-        self.inventario_frutas = [] # Arreglo donde se almacenan las frutas
-        self.inventario_verduras = [] # Arreglo donde se almacenan las verduras
+        self.inventario_frutas = []  # Arreglo donde se almacenan las frutas
+        self.inventario_verduras = []  # Arreglo donde se almacenan las verduras
 
     # Esta función permite agregar una Fruta al inventario de frutas
     # Parámetros de ingreso: Recibe un producto tipo Fruta
@@ -35,21 +41,32 @@ class Inventario(metaclass=SingletonInventarioMeta):
         self.inventario_verduras.append(producto)
 
     # Esta función permite retornar una Fruta que esté en el inventario
-    # Parámetros de ingreso: codigo de la fruta
+    # Parámetros de ingreso: Código del producto
     # Retorna: Si se encuentra la fruta se retorna, en caso contrario se retorna None
     def retornar_Fruta(self, codigo_producto) -> Fruta:
 
+        # Se crea la variable fruta para retornar el producto en caso de que se encuentre
         fruta = None
+
+        # Se obtiene la cantidad de elementos del arreglo inventario_frutas
         cantidad_elementos_arreglo = len(self.inventario_frutas)
+
+        # Se itera sobre el arreglo buscando el producto que coincida con el código y se actualiza
+        # la cantidad de elementos del producto
         for index in range( cantidad_elementos_arreglo ):
+
+            # Se verifica si el código coincide con alguno de los elementos de la lista de productos
             if self.inventario_frutas[index].retornar_codigo_producto() == codigo_producto:
 
+                # Se resta 1 a la cantidad del producto
                 actualizar_cantidad_producto_en_inventario = self.inventario_frutas[index].retornar_cantidad_producto() - 1
 
+                # Se verifica si al restar 1 a la cantidad de productos disponibles aún tenemos productos para la venta
                 if actualizar_cantidad_producto_en_inventario >= 0:
                     self.inventario_frutas[index].establecer_cantidad_producto( actualizar_cantidad_producto_en_inventario )
                     fruta = self.inventario_frutas[index]
 
+            # Si ya no tenemos productos con cantidad > 0, se elimina de la lista del inventario
             if self.inventario_frutas[index].retornar_cantidad_producto() == 0:
                 self.inventario_frutas.pop(index)
                 break
@@ -57,32 +74,41 @@ class Inventario(metaclass=SingletonInventarioMeta):
         return fruta
 
     # Esta función permite retornar una Verdura que esté en el inventario
-    # Parámetros de ingreso: codigo de la verdura
+    # Parámetros de ingreso: Código de la verdura
     # Retorna: Si se encuentra la verdura se retorna, en caso contrario se retorna None
     def retornar_Verdura(self, codigo_producto) -> Verdura:
 
+        # Se crea la variable verdura para retornar el producto en caso de que se encuentre
         verdura = None
+
+        # Se obtiene la cantidad de elementos del arreglo inventario_verduras
         cantidad_elementos_arreglo = len(self.inventario_verduras)
+
+        # Se itera sobre el arreglo buscando el producto que coincida con el código y se actualiza
+        # la cantidad de elementos del producto
         for index in range(cantidad_elementos_arreglo):
+
+            # Se verifica si el código coincide con alguno de los elementos de la lista de productos
             if self.inventario_verduras[index].retornar_codigo_producto() == codigo_producto:
 
-                actualizar_cantidad_producto_en_inventario = self.inventario_verduras[
-                                                                 index].retornar_cantidad_producto() - 1
+                # Se resta 1 a la cantidad del producto
+                actualizar_cantidad_producto_en_inventario = self.inventario_verduras[index].retornar_cantidad_producto() - 1
 
+                # Se verifica si al restar 1 a la cantidad de productos disponibles aún tenemos productos para la venta
                 if actualizar_cantidad_producto_en_inventario >= 0:
-                    self.inventario_verduras[index].establecer_cantidad_producto(
-                        actualizar_cantidad_producto_en_inventario)
+                    self.inventario_verduras[index].establecer_cantidad_producto(actualizar_cantidad_producto_en_inventario)
                     verdura = self.inventario_verduras[index]
 
+            # Si ya no tenemos productos con cantidad > 0, se elimina de la lista del inventario
             if self.inventario_verduras[index].retornar_cantidad_producto() == 0:
                 self.inventario_verduras.pop(index)
                 break
 
         return verdura
 
-    # Esta función permite imprimir el inventario de Frutas y Verduras disponibles.
+    # Esta función permite retornar un mensaje con el inventario de Frutas y Verduras disponibles.
     # Parámetros de ingreso: Ninguno
-    # Retorna: El mensaje para imprimir en consola
+    # Retorna: El mensaje para imprimir en consola con el inventario
     def imprimir_inventario(self) -> str:
 
         # Definimos una variable de tipo str para imprimir el inventario de productos
@@ -104,16 +130,23 @@ class Inventario(metaclass=SingletonInventarioMeta):
 
         return mensaje
 
+    # Esta función permite retornar un mensaje con el inventario de Frutas y Verduras disponibles en la estantería de venta
+    # Parámetros de ingreso: Ninguno
+    # Retorna: El mensaje para imprimir en consola con la disponibilidad en la estanteria
     def actualizar_productos_disponibles_en_estanteria(self) -> str:
 
+        # Esta matriz de dos filas nos permite representar la estantería de productos
         productos_en_estanteria = [
             [], # En esta fila se agregan las frutas
             []  # En esta fila se agregan las verduras
         ]
+
+        # Con estos ciclos se agregan las frutas por nombre a la estantería
         for f in self.inventario_frutas:
             for _ in range(f.retornar_cantidad_producto()):
                 productos_en_estanteria[0].append(f.retornar_nombre_producto())
 
+        # Con estos ciclos se agregan las verduras por nombre a la estantería
         for f in self.inventario_verduras:
             for _ in range(f.retornar_cantidad_producto()):
                 productos_en_estanteria[1].append(f.retornar_nombre_producto())
@@ -121,6 +154,8 @@ class Inventario(metaclass=SingletonInventarioMeta):
         mensaje  = "\n=============================================================================\n"
         mensaje += "\n|  SELECCIONE SU PRODUCTO DEL ESTANTE DE ACUERDO AL CODIGO DE LA TABLA\n"
         mensaje += "\n=============================================================================\n"
+
+        # Estos ciclos nos permiten construir el mensaje que se retorna para imprimir la estanteria de productos
         for categoria in productos_en_estanteria:
 
             for producto in categoria:

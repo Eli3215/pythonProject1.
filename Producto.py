@@ -158,6 +158,7 @@ class Verdura(Producto):
     def retornar_precio_producto(self) -> float:
         return self.precio
 
+
     # Método para retornar el código del producto
     # Parámetros de ingreso: No
     # Retorna: Código del producto

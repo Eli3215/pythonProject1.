@@ -151,6 +151,7 @@ class Inventario(metaclass=SingletonInventarioMeta):
             for _ in range(f.retornar_cantidad_producto()):
                 productos_en_estanteria[1].append(f.retornar_nombre_producto())
 
+
         mensaje  = "\n=============================================================================\n"
         mensaje += "\n|  SELECCIONE SU PRODUCTO DEL ESTANTE DE ACUERDO AL CODIGO DE LA TABLA\n"
         mensaje += "\n=============================================================================\n"

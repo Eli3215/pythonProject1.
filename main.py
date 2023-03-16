@@ -88,6 +88,7 @@ if __name__ == "__main__":
                 # Se llama al método acumular venta para ir agregando el costo a la factura
                 venta.acumular_venta(precio_producto)
 
+
                 limpiar_consola()
                 print("==================================================")
                 print(f'Valor actual factura: {venta.retorna_valor_venta()}')

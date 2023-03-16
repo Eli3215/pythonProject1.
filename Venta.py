@@ -1,4 +1,4 @@
-# Clase que permite controlar el proceso de venta a cada cliente
+## Clase que permite controlar el proceso de venta a cada cliente
 class Venta:
 
     # Constructor de la clase para inicializar las variables para llevar la cuenta de la venta actual

@@ -17,6 +17,7 @@ def ingresar_producto( tipo_producto, nombre_producto, precio_producto, cantidad
     # Llamado a la clase factory
     factory = Factory()
 
+
     # Creación de un producto (Fruta o Verdura) dependiendo del tipo de producto requerido
     # usando la clase Factory
     producto = factory.crear_producto( tipo_producto )
